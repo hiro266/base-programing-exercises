@@ -2,7 +2,7 @@
 // 計算はすべて整数型で行うこと（割り切れない場合は自動的に小数点以下が切り捨てられる）。
 
 const utils = require("../utils/utils");
-const { rl, isInteger } = utils;
+const { rl, isValidInteger } = utils;
 
 rl.prompt();
 
@@ -14,7 +14,7 @@ let inputList = [];
 rl.on("line", (input) => {
   const convertedNumber = Number(input);
 
-  if (isInteger(convertedNumber)) {
+  if (isValidInteger(convertedNumber)) {
     console.log("整数を入力して下さい");
     rl.close();
     return;

@@ -1,14 +1,14 @@
 // No. 21 5より大きく20より小さい
 // 整数値を入力させ、その値が5よりも大きく、かつ、20よりも小さければOKと表示するプログラムを作成せよ。
 
-const { rl, isInteger } = require("../utils/utils");
+const { rl, isValidInteger } = require("../utils/utils");
 
 rl.prompt();
 
 rl.on("line", (input) => {
   const number = Number(input.trim());
 
-  if (isInteger(number)) {
+  if (isValidInteger(number)) {
     console.log("整数を入力して下さい");
     rl.close();
     return;

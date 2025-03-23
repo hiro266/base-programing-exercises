@@ -12,7 +12,7 @@
 // - inputsへのpushはif文の外で実行
 //  - if else どちらでも実行する処理のため
 
-const { rl, isInteger } = require("../utils/utils");
+const { rl, isNotInteger } = require("../utils/utils");
 
 const MAX_INPUTS = 2; // 入力数の上限
 const inputs = [];
@@ -31,7 +31,7 @@ rl.on("line", (input) => {
   const number = Number(input.trim());
 
   // 入力値が整数でない場合、エラーメッセージを表示して終了
-  if (isInteger(number)) {
+  if (isNotInteger(number)) {
     console.error("整数を入力して下さい");
     rl.close();
     return;

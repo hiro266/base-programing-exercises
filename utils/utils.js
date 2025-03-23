@@ -8,8 +8,8 @@ const rl = readline.createInterface({
 });
 
 // 入力値が整数以外かを検証
-const isInteger = (input) => {
+const isNotInteger = (input) => {
   return Number.isNaN(input) || !Number.isInteger(input);
 };
 
-module.exports = { rl, isInteger };
+module.exports = { rl, isNotInteger };
