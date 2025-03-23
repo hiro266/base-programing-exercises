@@ -1,14 +1,14 @@
 // 整数値を入力させ、入力値が0でなければ再度入力させ、0であれば終了するプログラムを作成せよ。
 
 const utils = require("./utils/utils");
-const { rl, isInteger } = utils;
+const { rl, isNotInteger } = utils;
 
 rl.prompt();
 
 rl.on("line", (input) => {
   const convertedNumber = Number(input);
 
-  if (isInteger(convertedNumber)) {
+  if (isNotInteger(convertedNumber)) {
     console.log("整数を入力して下さい");
     rl.close();
     return;
