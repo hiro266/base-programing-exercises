@@ -3,6 +3,9 @@
 
 const { rl, isNotInteger } = require("../utils/utils");
 
+const LOWER_BOUND = -10;
+const UPPER_BOUND = 0;
+
 const processInput = (input) => {
   const number = Number(input.trim());
 
@@ -12,9 +15,9 @@ const processInput = (input) => {
     return;
   }
 
-  if (number < -10) {
+  if (number < LOWER_BOUND) {
     console.log("range1");
-  } else if (number >= -10 && number < 0) {
+  } else if (number >= LOWER_BOUND && number < UPPER_BOUND) {
     console.log("range2");
   } else {
     console.log("range3");
