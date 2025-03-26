@@ -14,7 +14,7 @@ const processInput = (input) => {
 
   if (isNotInteger(number)) {
     console.log("整数を入力して下さい");
-    rl.close();
+    rl.prompt();
     return;
   }
 
