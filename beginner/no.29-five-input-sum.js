@@ -9,7 +9,7 @@ const inputList = [];
 const INPUT_COUNT = 5;
 const INITIAL_VALUE = 0;
 
-rl.on("line", (input) => {
+const processInput = (input) => {
   const number = Number(input.trim());
 
   if (isNotInteger(number)) {
@@ -30,4 +30,6 @@ rl.on("line", (input) => {
   } else {
     rl.prompt();
   }
-});
+};
+
+rl.on("line", processInput);
