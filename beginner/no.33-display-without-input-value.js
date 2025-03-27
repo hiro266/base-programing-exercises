@@ -16,13 +16,13 @@ const processInput = (input) => {
     return;
   }
 
-  if (number <= LOWER_LIMIT || number > UPPER_LIMIT) {
+  if (number < LOWER_LIMIT || number > UPPER_LIMIT) {
     console.log("1~9までの整数を入力して下さい");
     rl.prompt();
     return;
   }
 
-  for (i = 1; i <= UPPER_LIMIT; i++) {
+  for (i = LOWER_LIMIT; i <= UPPER_LIMIT; i++) {
     if (i !== number) console.log(i);
   }
 
