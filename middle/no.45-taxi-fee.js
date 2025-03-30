@@ -14,7 +14,7 @@ const getPrice = (number) => {
   const { distance: basicDistance, price: basicPrice } = BASIC_CHARGE;
   const { distance: addDistance, price: addPrice } = ADDITIONAL_CHARGE;
 
-  if (number < basicDistance) {
+  if (number <= basicDistance) {
     return basicPrice;
   } else {
     const totalPrice =
@@ -24,15 +24,15 @@ const getPrice = (number) => {
 };
 
 const processInput = (input) => {
-  const number = Number(input.trim());
+  const distance = Number(input.trim());
 
-  if (isNotInteger(number)) {
+  if (isNotInteger(distance)) {
     console.log("整数を入力して下さい");
     rl.prompt();
     return;
   }
 
-  const price = getPrice(number);
+  const price = getPrice(distance);
   console.log(`金額 ${price}`);
 
   rl.close();
