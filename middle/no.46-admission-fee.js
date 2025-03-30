@@ -11,15 +11,12 @@ const PRICE = {
 };
 
 const getAdmissionFee = (count) => {
-  if (count <= PRICE["basic"]["count"]) {
-    return count * PRICE["basic"]["price"];
-  } else if (
-    count >= PRICE["discount"]["count"] &&
-    count < PRICE["specialDiscount"]["count"]
-  ) {
-    return count * PRICE["discount"]["price"];
+  if (count <= PRICE.basic.count) {
+    return count * PRICE.basic.price;
+  } else if (count < PRICE.specialDiscount.count) {
+    return count * PRICE.discount.price;
   } else {
-    return count * PRICE["specialDiscount"]["price"];
+    return count * PRICE.specialDiscount.price;
   }
 };
 
