@@ -5,7 +5,6 @@
 const { rl, isNotInteger } = require("../utils/utils");
 
 rl.prompt();
-let n;
 
 const processInput = (input) => {
   const number = Number(input.trim());
@@ -22,17 +21,17 @@ const processInput = (input) => {
     return;
   }
 
-  n = number;
+  let n = number;
+  let index = 1;
   while (n !== 1) {
-    console.log(n);
-
     if (n % 2 === 0) {
       n = n / 2;
     } else {
       n = n * 3 + 1;
     }
+    console.log(`${index}: ${n}`);
+    index++;
   }
-  console.log(n);
 
   rl.close();
 };
