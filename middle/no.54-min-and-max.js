@@ -1,7 +1,7 @@
 const readlineSync = require("readline-sync");
 
-const data = ["smallData", "middleData", "largeData"];
-const index = readlineSync.keyInSelect(data, "ファイルを指定して下さい");
+const dataOptions = ["smallData", "middleData", "largeData"];
+const index = readlineSync.keyInSelect(dataOptions, "ファイルを指定して下さい");
 
 const dataMapping = {
   smallData: [268, 682, 676, 492, 723, 858, 962, 804, 556, 128],
@@ -25,12 +25,14 @@ const dataMapping = {
 
 if (index === -1) return;
 
-const getMaxAndMin = (index) => {
-  const min = Math.min(...dataMapping[data[index]]);
-  const max = Math.max(...dataMapping[data[index]]);
+const selectedData = dataMapping[dataOptions[index]];
+
+const getMaxAndMin = (selectedData) => {
+  const min = Math.min(...selectedData);
+  const max = Math.max(...selectedData);
 
   return { min, max };
 };
 
-const { min, max } = getMaxAndMin(index);
+const { min, max } = getMaxAndMin(selectedData);
 console.log(`最小値 = ${min}, 最大値 = ${max}`);
