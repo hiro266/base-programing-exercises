@@ -8,12 +8,7 @@
 const fs = require("fs");
 const readlineSync = require("readline-sync");
 
-const dataOptions = [
-  "examSmall.data",
-  "examMiddle.data",
-  "examLarge.data",
-  "tmp.data",
-];
+const dataOptions = ["examSmall.data", "examMiddle.data", "examLarge.data"];
 const index = readlineSync.keyInSelect(dataOptions, "ファイルを指定して下さい");
 
 if (index === -1) return;
