@@ -7,6 +7,7 @@ const { rl, isNotInteger } = require("../utils/utils");
 rl.setPrompt("石の数を入力して下さい(10以上)");
 rl.prompt();
 
+let stoneCount;
 let stones;
 let times = 1;
 
@@ -19,8 +20,14 @@ const processInput = (input) => {
     return;
   }
 
-  if (number < 10) {
+  if (stoneCount === undefined) {
+    stoneCount = number;
+    console.log(`石の数: ${stoneCount}`);
+  }
+
+  if (stoneCount < 10) {
     console.log("10以上の自然数を入力して下さい");
+    stoneCount = undefined;
     rl.prompt();
     return;
   }
@@ -32,8 +39,36 @@ const processInput = (input) => {
     return;
   }
 
+  if (number > 3) {
+    rl.prompt();
+    return;
+  }
+
+  stones = stones - number;
+
+  if (stones <= 0) {
+    if (times % 2 === 1) {
+      console.log(`石の数: ${stones}\nプレイヤー1の反則負け`);
+    } else {
+      console.log(`石の数: ${stones}\nプレイヤー2の反則負け`);
+    }
+    rl.close();
+    return;
+  }
+
+  if (stones === 1) {
+    if (times % 2 === 1) {
+      console.log(`石の数: ${stones}\nプレイヤー1の勝ち`);
+    } else {
+      console.log(`石の数: ${stones}\nプレイヤー2の勝ち`);
+    }
+    rl.close();
+    return;
+  }
+
   times = times + 1;
 
+  console.log(`石の数: ${stones}`);
   if (times % 2 === 1) {
     rl.setPrompt("プレイヤー1の番です\n何個取る（1〜3個）?");
     rl.prompt();
@@ -43,8 +78,6 @@ const processInput = (input) => {
     rl.prompt();
     return;
   }
-
-  rl.close();
 };
 
 rl.on("line", processInput);
