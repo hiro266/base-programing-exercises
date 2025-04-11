@@ -12,7 +12,7 @@ const { rl } = require("../utils/utils");
 rl.setPrompt("誕生日をYYYYMMDDの形式で入力してください");
 rl.prompt();
 
-const calc = (birthday) => {
+const sumDigits = (birthday) => {
   return String(birthday)
     .split("")
     .map((value) => Number(value))
@@ -22,11 +22,8 @@ const calc = (birthday) => {
 };
 
 const isRepdigit = (sumCopy) => {
-  return String(sumCopy)
-    .split("")
-    .reduce((acc, current) => {
-      return acc === current;
-    });
+  const str = String(sumCopy);
+  return str.split("").every((s) => s === str[0]);
 };
 
 const processInput = (birthday) => {
@@ -35,12 +32,11 @@ const processInput = (birthday) => {
     rl.prompt();
     return;
   }
-  const sum = calc(birthday);
+  const sum = sumDigits(birthday);
   let sumCopy = sum;
 
-  while (sumCopy > 10) {
-    if (isRepdigit(sumCopy)) break;
-    sumCopy = calc(sumCopy);
+  while (sumCopy >= 10 && !isRepdigit(sumCopy)) {
+    sumCopy = sumDigits(sumCopy);
   }
 
   console.log(sumCopy);
