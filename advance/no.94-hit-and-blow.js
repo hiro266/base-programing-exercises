@@ -14,19 +14,49 @@
 // このゲームを3回に分けて作ってみよう。まず、コンピュータは正解となる4つの数字をランダムに選ぶ（同じ数字を何回使ってもよいし、0で始まってもよい）。
 // 次に、プレイヤーに4桁の数字を入力させる。そして、ヒットの数を数え、表示するプログラムを作成せよ。
 
-// const { rl, isNotInteger } = require("../utils/utils");
+const { rl } = require("../utils/utils");
 
-// rl.prompt();
-
+// コンピュータが正解を決定する関数
 const getCollectNumber = () => {
   let num = Math.floor(Math.random() * 9999);
   if (num < 1000) {
     const str = String(num);
     num = str.padStart(4, "0");
   }
-  return num;
+  return String(num);
+};
+const collectNumber = getCollectNumber();
+console.log("collectNumber", collectNumber);
+
+// 入力値とコンピュータが決定した値が一致しているかを判定する
+const isEqual = (number) => {
+  return number === collectNumber;
 };
 
-const collectNumber = getCollectNumber();
+// ヒットの数を数える
+const getHitCount = (input) => {
+  const arrayInput = input.split("");
+  const arrayCollectNumber = collectNumber.split("");
 
-console.log("collectNumber", collectNumber);
+  return arrayInput.filter(
+    (arrNum, index) => arrNum === arrayCollectNumber[index]
+  ).length;
+};
+
+// 対話開始
+rl.setPrompt("4桁の数字を入力");
+rl.prompt();
+
+const processInput = (input) => {
+  if (isEqual(input)) {
+    console.log("4hit\nクリア!!");
+    rl.close();
+    return;
+  }
+
+  const hitCount = getHitCount(input);
+  console.log(`${hitCount} hit`);
+  rl.close();
+};
+
+rl.on("line", processInput);
