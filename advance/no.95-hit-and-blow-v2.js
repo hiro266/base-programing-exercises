@@ -12,8 +12,7 @@ const getCollectNumber = () => {
   }
   return String(num);
 };
-const collectNumber = "1234";
-// const collectNumber = getCollectNumber();
+const collectNumber = getCollectNumber();
 console.log("collectNumber", collectNumber);
 
 // 入力値とコンピュータが決定した値が一致しているかを判定する
