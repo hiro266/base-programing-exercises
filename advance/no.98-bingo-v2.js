@@ -2,8 +2,10 @@
 // No.97で作ったビンゴカードで、ビンゴの抽選をするプログラムを作ろう。1〜75の数字をランダムな順番で1つずつ選んでいく。選んだ数字がカードにあれば、その数字のマス目を開ける。空いたマス目が縦横斜めのいずれかに5つ並べばビンゴとなり終了する。抽選の経過がわかるように表示を工夫しよう。
 
 const shuffleCards = (numbers) => {
-  let returnCards = numbers;
+  // 元の配列を破壊しないようにシャローコピー
+  let returnCards = [...numbers];
   let num = returnCards.length;
+
   while (num) {
     let i = Math.floor(Math.random() * num);
     num--;
@@ -41,7 +43,7 @@ const handleNumberIfExists = (number) => {
   for (const row of bingoCards) {
     const idx = row.indexOf(number);
     if (idx !== -1) {
-      row.splice(idx, 1, "0");
+      row.splice(idx, 1, "X");
       return true;
     }
   }
@@ -49,7 +51,7 @@ const handleNumberIfExists = (number) => {
 };
 
 // 全て"0"かを確認
-const isBingo = (currentValue) => currentValue === "0";
+const isBingo = (currentValue) => currentValue === "X";
 
 // 縦のBINGO判定
 const isVerticalBingo = (bingoCards) => {
@@ -112,4 +114,4 @@ const interval = setInterval(function () {
     console.log("***** BINGO *****");
     clearInterval(interval);
   }
-}, 200);
+});
