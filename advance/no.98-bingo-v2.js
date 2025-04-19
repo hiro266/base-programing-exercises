@@ -32,7 +32,7 @@ const shuffledCards = shuffleCards(numbers);
 const extractedCards = shuffledCards.slice(0, 25);
 const bingoCards = generateBingoCard();
 
-// --------- 上記は初期化 ---------
+// --------- 上記でビンゴカード作成 ---------
 
 const reShuffledCards = shuffleCards(numbers);
 
@@ -49,23 +49,50 @@ const handleNumberIfExists = (number) => {
 };
 
 // 全て"0"かを確認
-const isAllZero = (currentValue) => currentValue === "0";
+const isBingo = (currentValue) => currentValue === "0";
 
 // 縦のBINGO判定
-const isVerticalBingo = (bingoCards) => {};
+const isVerticalBingo = (bingoCards) => {
+  const columns = [[], [], [], [], []];
+
+  bingoCards.forEach((row) => {
+    row.forEach((_, index) => {
+      columns[index].push(row[index]);
+    });
+  });
+
+  for (const row of columns) {
+    if (row.every(isBingo)) return true;
+  }
+};
 
 // 横のBINGO判定
 const isHorizontalBingo = (bingoCards) => {
-  console.log("isHorizontalBingo 発火");
   for (const row of bingoCards) {
-    if (row.every(isAllZero)) return true;
+    if (row.every(isBingo)) return true;
   }
 };
 
 // 斜めのBINGO判定
-const isDiagonalBingo = (bingoCards) => {};
+const isDiagonalBingo = (bingoCards) => {
+  const columns = [[], []];
+  let tmp = 4;
 
+  bingoCards.forEach((row, index) => {
+    columns[0].push(row[index]);
+    columns[1].push(row[tmp]);
+    tmp--;
+  });
+
+  for (const row of columns) {
+    if (row.every(isBingo)) return true;
+  }
+};
+
+// ビンゴカードを引いた回数
 let count = 1;
+
+// ビンゴの処理
 const interval = setInterval(function () {
   const number = reShuffledCards.shift();
   const numberExisted = handleNumberIfExists(number);
@@ -73,13 +100,16 @@ const interval = setInterval(function () {
   //	--- 出力処理 ---
   console.log(`${count}個目: ${number}`);
   console.log(`${numberExisted ? "あった!!" : "なかった..."}`);
-  bingoCards.forEach((dimensional) => console.log(dimensional.join("\t")));
+  bingoCards.forEach((row) => console.log(row.join("\t")));
   console.log("-----------------------------------");
   //	--- 出力処理 ---
   count++;
-  if (isHorizontalBingo(bingoCards)) {
-    //   if (isVerticalBingo(bingoCards) && isHorizontalBingo(bingoCards) && isDiagonalBingo(bingoCards)) {
+  if (
+    isVerticalBingo(bingoCards) ||
+    isHorizontalBingo(bingoCards) ||
+    isDiagonalBingo(bingoCards)
+  ) {
     console.log("***** BINGO *****");
     clearInterval(interval);
   }
-}, 1000);
+}, 200);
