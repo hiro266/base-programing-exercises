@@ -38,7 +38,7 @@ const bingoCards = generateBingoCard();
 
 const reShuffledCards = shuffleCards(numbers);
 
-// 一致したら数値を0に、不一致なら何もしないでそれぞれの結果をboolで返す
+// 一致したら数値を"X"に、不一致なら何もしないでそれぞれの結果をboolで返す
 const handleNumberIfExists = (number) => {
   for (const row of bingoCards) {
     const idx = row.indexOf(number);
@@ -50,8 +50,8 @@ const handleNumberIfExists = (number) => {
   return false;
 };
 
-// 全て"0"かを確認
-const isBingo = (currentValue) => currentValue === "X";
+// 全て"X"かを確認
+const isComplete = (currentValue) => currentValue === "X";
 
 // 縦のBINGO判定
 const isVerticalBingo = (bingoCards) => {
@@ -64,15 +64,17 @@ const isVerticalBingo = (bingoCards) => {
   });
 
   for (const row of columns) {
-    if (row.every(isBingo)) return true;
+    if (row.every(isComplete)) return true;
   }
+  return false;
 };
 
 // 横のBINGO判定
 const isHorizontalBingo = (bingoCards) => {
   for (const row of bingoCards) {
-    if (row.every(isBingo)) return true;
+    if (row.every(isComplete)) return true;
   }
+  return false;
 };
 
 // 斜めのBINGO判定
@@ -87,8 +89,20 @@ const isDiagonalBingo = (bingoCards) => {
   });
 
   for (const row of columns) {
-    if (row.every(isBingo)) return true;
+    if (row.every(isComplete)) return true;
   }
+  return false;
+};
+
+const isBingo = (bingoCards) => {
+  if (
+    isVerticalBingo(bingoCards) ||
+    isHorizontalBingo(bingoCards) ||
+    isDiagonalBingo(bingoCards)
+  ) {
+    return true;
+  }
+  return false;
 };
 
 // ビンゴカードを引いた回数
@@ -106,12 +120,8 @@ const interval = setInterval(function () {
   console.log("-----------------------------------");
   //	--- 出力処理 ---
   count++;
-  if (
-    isVerticalBingo(bingoCards) ||
-    isHorizontalBingo(bingoCards) ||
-    isDiagonalBingo(bingoCards)
-  ) {
+  if (isBingo(bingoCards)) {
     console.log("***** BINGO *****");
     clearInterval(interval);
   }
-});
+}, 50);
