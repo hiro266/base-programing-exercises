@@ -5,6 +5,7 @@
   "main": "template.js",
   "scripts": {
     "start": "ts-node main.ts",
+    "tmp": "ts-node tmp.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
