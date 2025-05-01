@@ -1,5 +1,5 @@
 const tmp = () => {
-  console.log("It works!");
+  console.log("時間切れ!!!");
 };
 
 tmp();
